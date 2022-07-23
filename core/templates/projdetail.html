@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul  class='navauthor' style = 'padding-left:0; margin-left:0.5em;box-shadow: 2px 9px 8px grey;  float: right; list-style-type: none;'>
+    <li><a  href ='{% url "create"  %} '> Add project </li>
+      <li> <a  href='{% url "createprofile"   %}'>Update Profile </a></li>
+     <li> <a href ='{% url "myprofile"  %}'>My Profile </a></li>
+    {% if request.user.is_superuser %}
+     <li> <a href ='{% url "allprofiles"  %}'>Authors Profile </a></li>
+     {% endif %}
+    </ul>
+<h1> {{projdetail.title}}</h1>
+<img style="width: 600; height: 400; text-align: center;" src ="{{projdetail.project_image.url}}">
+
+<p><b>Category: {{projdetail.category}}</b></p>
+
+<p> {{projdetail.description}} </p>
+
+<h4> Image Gallery </h4>
+<ul style="list-style-type: none; margin-top:0; display: grid; grid-template-columns: 3fr 3fr 3fr 3fr; grid-gap: 0.5em;">
+    <li> <img style="width: 250; height: 250;" src ="{{projdetail.galleryimage.url}}"></li>
+    <li>  <img style="width: 250; height: 250;" src ="{{projdetail.galleryimage2.url}} "></li>
+    <li>  <img style="width: 250; height: 250;" src ="{{projdetail.galleryimage3.url}}"></li>
+    <li> <img style="width: 250; height: 250;" src = "{{projdetail.galleryimage4.url}}"></li>
+    <li> <img style="width: 250; height: 250;" src ="{{projdetail.galleryimage5.url}}"></li>
+    <li> <img style="width: 250; height: 250;" src ="{{projdetail.galleryimage6.url}}"></li>
+</ul>
+    Contact Creator:
+<ul style ='list-style-type: none; margin: 0;'>
+    <li>{{projdetail.author.email}}</li>
+<li>{{projdetail.author.date_joined}}</li>
+</ul>
+
+<a href ='{% url "deleter"  projdetail.id %}'> Delete </a>
+<a href ='{% url "update"  projdetail.id %}'> Update </a>
+
+<br>
+<br>
+<h3 style='margin-bottom: 0;'> Related Projects </h3>
+<div style="margin-top:0; display: grid; grid-template-columns: 4fr 4fr 4fr; grid-gap: 0.5em;">
+        {% for projlists in related  %}
+        {% if projdetail.category.slug == projlists.category.slug   %}
+<ul style='border: solid black; padding : 1em; list-style-type: none; background: beige;'>
+<li><a href ='{% url "projdetail" projlists.slug  %} '> {{projlists.title}} </a></li>
+<li> Created by {{ projlists.author}} the creator</li>
+<li><img style="width: 300px; height: 150px;" src ="{{projlists.project_image.url}}">
+</li>
+<li> Category: {{projlists.category}}
+
+<li> {{ projlists.description|truncatechars:100 }}</li>
+<li><button type = 'submit'> <a href ='{% url "projdetail" projlists.slug  %} '>
+Read More
+</a> </button></li>
+</ul>
+{% endif %}
+{% endfor%}
+
+</div>
+{{try}}<br><hr>
+{{author}}
+
+{% endblock %}

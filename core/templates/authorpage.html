@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul  class='navauthor' style = 'padding-left:0; margin-left:0.5em;box-shadow: 2px 9px 8px grey;  float: right; list-style-type: none;'>
+    <li><a  href ='{% url "create"  %} '> Add project </li>
+      <li> <a  href='{% url "createprofile"   %}'>Update Profile </a></li>
+     <li> <a href ='{% url "myprofile"  %}'>My Profile </a></li>
+    {% if request.user.is_superuser %}
+     <li> <a href ='{% url "allprofiles"  %}'>Authors Profile </a></li>
+     {% endif %}
+    </ul>
+
+<h3>Projects Completed</h3>
+
+<div style="display: grid; grid-template-columns: 4fr 4fr 4fr; 
+grid-gap: 0.5em;">
+{% for post in  allpost  %}
+
+    <ul style='box-shadow: 2px 9px 8px grey;border: solid black; padding : 1em; 
+    list-style-type: none; background: beige;'>
+
+        <li><a href ='{% url "projdetail" post.slug  %} '> {{post.title}} </a></li>
+      <li> Created by {{ post.author}} the creator</li>
+      <img style="width: 300px; height: 300px;" src ="{{post.project_image.url}}">
+
+      <li> {{ post.description|truncatechars:200 }}</li>
+      <li><button type = 'submit'> <a href ='{% url "projdetail" post.slug  %} '>
+          Read More
+      </a> </button></li>
+
+      </ul>
+      {% endfor %}
+
+      {% endblock content %}

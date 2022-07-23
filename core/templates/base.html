@@ -1,0 +1,90 @@
+<head>
+    <style>
+
+        body {  
+       background: wheat;
+        }
+
+        .nav { box-shadow: 2px 9px 8px grey; }
+        .nav li { background: beige; margin: 0.1em;  text-align: center; border: 1px solid black;}
+        .navauthor { box-shadow: 2px 9px 8px grey; }
+        .navauthor li { display: inline;  padding: 0.4em; background: beige; margin: 0.1em;  text-align: center; border: 1px solid black;}
+        
+
+        a { text-decoration: none; }
+        a:hover {font-size: 120%;  }
+        .nav li a:hover { background: black; color: white; font-size: 120%; }
+.nav li a { padding: 0.3em; display: block; }
+.cover { display: grid; grid-template-columns: 2fr 10fr; grid-gap: 1.3em;}
+    </style>
+</head>
+<body style ='margin: 0em; padding: 0.1em; font-size: 1.3em; ' >
+    <header style= 'box-shadow: 2px 6px 5px grey;margin: 0em; padding-left: 1em; padding-right: 1em; padding-top: 0.5em; height: 7em; 
+    background: black; color: white;'>
+    <img style="float: left; margin: 0.4em; width: 100px; height: 100px;" src ="media/media/Untitled.png">
+
+    {% if request.user.is_authenticated %}
+
+<p style='float:left;' >Hi <a style ='color: white;' href='{% url "author" %}'>{{request.user}}</a><br><br>
+ <a style='color: white;' href='{% url "logout" %}'>Logout </a></p>
+ <p><a style='color: white; float: right;' href='{% url "author" %}'>My Projects </a><p>
+    {% else %}
+    <p style ='float: right;'><a href='{% url "login" %}' >Login </a></p>
+    {% endif %}
+        <h2 style='text-align: center'><a style='color: white;' href='{% url "home" %}'>ITexperts Showhouse</a></h2>
+<p style='text-align: center'> <small>showcasing the design of ITexperts </small></p>
+    </header>
+<div class ='cover'>
+<nav>
+    <h4> Filter by Category </h4>
+
+    <ul class='nav' style='list-style-type : none; padding: 0; margin-left: 0em;'>
+        <li><a href="{% url 'home' %}" > Home</a></li> 
+        {%  if categories %}
+
+        {% for category in categories %}
+<li><a href="{% url 'category' category.slug %}"> {{category.name}}</a></li>
+{% endfor %}
+{% endif %}
+        <li><a href="{% url 'create' %}" > Create Project</a></li> 
+        {% if request.user.is_authenticated %} 
+        <li><a href="{% url 'author' %}" > My Projects</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}" > Logout</a></li> 
+
+        {% if request.user.is_superuser %} 
+        <li> <a href ="{% url 'createcate' %}"> Add  Category <a></li>
+            {% endif %}
+        </ul>
+    
+
+<h4> Filter by Authors </h4>
+<ul class='nav' style='list-style-type : none; padding: 0; margin-left: 0em;' >
+    {% for author in users %}
+    <li><a  href ='{% url "allposts"  author.pk %} '> {{author.username}}</a></li>
+    {% endfor %}
+</ul>
+
+
+<h4> Filter by Country </h4>
+<ul class='nav' style='list-style-type : none; padding: 0; margin-left: 0em;' >
+    {% for post in authorcountry  %}
+    <li><a  href ='{% url "allposts" post.pk   %} '> {{post.country}}</a></li>
+    {% endfor %}
+
+    <h4> Filter by Occupation </h4>
+<ul class='nav' style='list-style-type : none; padding: 0; margin-left: 0em;' >
+    {% for post in authorcountry  %}
+    <li><a  href ='{% url "allposts" post.pk %} '> {{post.occupation}}</a></li>
+    {% endfor %}
+</ul>
+
+</nav>
+
+<section style='padding-right: 0.5em'>
+    
+{% block content %}
+
+{% endblock %}
+</section>
+</div>

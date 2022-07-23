@@ -1,0 +1,10 @@
+<ul>
+
+{% for post in allposts %}
+<li>{{post.title}}</li>
+<li>{{post.post_content|safe}}</li>
+<li>{{post.tag.name}}</li>
+<img style="width: 400px; height: 300px;" src ="{{post.imager.url}}"/>
+
+{% endfor %}
+</ul>

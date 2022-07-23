@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<h3 style='text-align: center;'> All Authors Profiles </h3>
+
+<hr>
+<div style="display: grid; grid-template-columns: 4fr 4fr 4fr; grid-gap: 0.5em;">
+    {% for prof in allprofiles %}
+
+<ul style='box-shadow: 2px 9px 8px grey;border: solid black; 
+padding : 1em; list-style-type: none; background: beige;'>
+
+<li style='padding-top:0em; '> Username : {{prof.username}}</li>
+<li> First Name : {{prof.firstname}}</li>
+<li> Last Name : {{prof.lastname}}</li>
+<li> Phone Number : {{prof.phone}}</li>
+<li> Occupation : {{prof.occupation}}</li>
+<li> Country : {{prof.country}}</li>
+<li><a href='{% url "updateprofile" prof.id  %}'> Edit Profile </a></li>
+</ul>
+{% endfor %}
+
+</div>
+
+
+
+
+
+
+{% endblock %}

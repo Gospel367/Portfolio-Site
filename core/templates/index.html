@@ -1,0 +1,22 @@
+<head>
+<style>
+body {background:wheat ; color: black }
+</style>
+</head>
+<body>
+{% block content %}
+<br>
+<h1 style='color: white; box-shadow: 2px 7px 5px grey;background: black; text-align : center;'> Welcome To Yoursite Demo </h1>
+<div style = 'box-shadow: 2px 9px 8px grey;margin:auto; width: 60%; 
+text-align : center; padding: 2em; border: solid black;''>
+<p>
+ <h2> This is the homepage of this site. 
+     <br><br>To contine, you need to be registered 
+     as a member in this site.<br><br>
+    To register, click <a href='{% url "register" %}' >Signup </a>. 
+    Already a member, click <a href ='{% url "login" %}' > Login </a> to login
+</h2>
+</p>
+</div>
+{% endblock%}
+</body>

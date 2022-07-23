@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Add New Project </h1>
+<a href = "{% url 'home' %}"> Go back </a>
+
+{% if messages %}
+{% for message in messages %}
+<p style='background: black; color: white; padding: 2em; max-width: 30%; text-align: center;' >{{message|safe}} <br></p>
+Click <a href = "{% url 'home' %}"> Here </a> 
+Go Back To Projects Page
+
+{% endfor %}
+{% endif %}
+
+<form method='POST'
+enctype ="multipart/form-data">
+    {% csrf_token %}
+<div>
+{{ form.as_p }}
+
+</div>
+
+<input type ='submit' value ='Submit'/>
+</form>
+
+{% endblock %}

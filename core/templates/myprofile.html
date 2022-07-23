@@ -1,0 +1,35 @@
+<head>
+<style> 
+    .profnav li {padding: 0.5em;}
+</style>
+
+</head>
+{% extends 'base.html' %}
+
+{% block content %}
+<ul  class='navauthor' style = 'padding-left:0; margin-left:0.5em;box-shadow: 2px 9px 8px grey;  float: right; list-style-type: none;'>
+    <li><a  href ='{% url "create"  %} '> Add project </li>
+      <li> <a  href='{% url "createprofile"   %}'>Update Profile </a></li>
+     <li> <a href ='{% url "myprofile"  %}'>My Profile </a></li>
+    {% if request.user.is_superuser %}
+     <li> <a href ='{% url "allprofiles"  %}'>Authors Profile </a></li>
+     {% endif %}
+    </ul>
+<div style='box-shadow: 6px 9px 8px grey; background: beige; 
+max-width: 30em; borer:  solid black; margin-top: 4em; '>
+<h3 style='padding-left: 0.5em;'> My Profile Information </h3>
+<hr>
+<ul class='profnav' style='list-style-type: none; padding: 0.5em;'>
+{% for prof in myprofile %}
+<li style='padding-top:0em; '> Username : {{request.user}}</li>
+<li> First Name : {{prof.firstname}}</li>
+<li> Last Name : {{prof.lastname}}</li>
+<li> Phone Number : {{prof.phone}}</li>
+<li> Occupation : {{prof.occupation}}</li>
+<li> Country : {{prof.country}}</li>
+<li><a href='{% url "updateprofile" prof.id  %}'> Edit Profile </a></li>
+{% endfor %}
+
+</ul>
+</div>
+{% endblock %}

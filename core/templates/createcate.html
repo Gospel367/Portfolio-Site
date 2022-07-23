@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Create New Category </h1>
+<a href = "{% url 'home' %}"> Go back </a>
+
+<form method='POST'>
+    {% csrf_token %}
+<div >
+{{ form.as_p }}
+</div>
+
+<input type ='submit' value ='Submit'/>
+</form>
+{% endblock %}

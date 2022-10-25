@@ -26,7 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('stack/', include("stack.urls")),
-    path('tinymce/', include('tinymce.urls'))
+    path('tinymce/', include('tinymce.urls')),
+	path('quill'/. include('django_quill.urls'))
 ]
 
 if settings.DEBUG:

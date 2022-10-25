@@ -46,9 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'stack',
-    'django_quill',
-    'tinymce'
-    
+    'tinymce',
+	'django_quill'
 ]
 
 MIDDLEWARE = [
